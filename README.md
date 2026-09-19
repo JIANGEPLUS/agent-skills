@@ -134,3 +134,21 @@ MIT，可自由用于个人与商业项目。
 ## 📄 License
 
 MIT © [JIANGEPLUS](https://github.com/JIANGEPLUS) — 见 [LICENSE](LICENSE)
+
+
+## Equity Research Pack（股票研究专家「严估深」）
+
+由股票研究专家「严估深」拆解而来的 6 个模块，每个都是可独立调用的入口，也可由 `equity-research` 总纲路由：
+
+| Skill | 职责 |
+|-------|------|
+| [equity-research](skills/equity-research/SKILL.md) | 总纲 / 路由、PM 七问、数据与评级纪律 |
+| [fundamentals-analysis](skills/fundamentals-analysis/SKILL.md) | 公司速览卡、业绩前瞻与解读、模型更新 |
+| [valuation](skills/valuation/SKILL.md) | 三表建模、WACC、DCF、可比估值、敏感性、目标价 |
+| [research-report](skills/research-report/SKILL.md) | 首次覆盖、投资备忘录、多空推介、行业综述、晨会纪要 |
+| [risk-monitoring](skills/risk-monitoring/SKILL.md) | 仓位与对冲、论点跟踪、催化剂日历、事件情景分析 |
+| [idea-screening](skills/idea-screening/SKILL.md) | 量化筛选、主题价值链扫描、一页纸想法卡 |
+
+包级说明见 [skills/equity-research/README.md](skills/equity-research/README.md)，完整规范见 [skills/equity-research/SPEC.md](skills/equity-research/SPEC.md)。
+
+> 金融类技能输出均为研究参考，不构成个人投资建议。
