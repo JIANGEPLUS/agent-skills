@@ -5,42 +5,31 @@
 **我实际采用的 Agent 技能集合 —— 生产级 `SKILL.md`，跨客户端通用**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Skills](https://img.shields.io/badge/skills-6-blue)
+![Skills](https://img.shields.io/badge/skills-2-blue)
 ![Platform](https://img.shields.io/badge/Agent%20Skills-compatible-blueviolet.svg)
 
 Qoder · OpenAI Codex · Claude Code · ChatGPT，以及任何兼容 [Agent Skills](https://agentskills.io/) 开放规范的 Agent
 
 </div>
 
-> **English**：A curated collection of the Agent Skills I actually keep installed. Six skills, two groups — one that sharpens the instruction before work starts, five that together form a UI-designer capability. Each is a plain `SKILL.md` folder, auto-discovered with zero configuration.
+> **English**: Two skills, each a single entry point. One sharpens the instruction before work starts; the other carries a full UI-designer workflow — tokens, component states, responsive layout, WCAG AA audit, developer handoff — behind one name. Plain `SKILL.md` folders, auto-discovered with zero configuration.
 
 ---
 
-## 为什么是这两个方向
+## 收录的技能
 
-装了很多"什么都能干"的通用提示词，实际效果是每次都要重讲一遍约束。我的取舍是：**只留能被明确触发、职责单一、输出格式固定**的技能。于是收敛成两组：
+| Skill | 职责 | 输出 |
+|---|---|---|
+| [`enhance-prompt`](skills/enhance-prompt/) | 改写模糊指令：消除歧义指代、补全目标/范围/约束/输出格式、假设显式标注、只增强不执行 | `<enhanced-prompt>` 单条增强指令 |
+| [`ui-designer`](skills/ui-designer/) | 像素君 UI 设计师：设计令牌 → 组件状态矩阵 → 响应式布局 → WCAG AA 审计 → 开发交付，五阶段可全跑也可单点调用 | 令牌 CSS / BEM 组件 CSS + 状态矩阵 / 栅格 CSS + 断点表 / 分级整改清单 / 规格卡 + QA 清单 |
 
-1. **提示词增强** —— 干活之前先把话说清楚。需求模糊时返工成本最高，这个技能专职消除歧义，且**只增强不执行**。
-2. **UI 设计师（像素君拆解）** —— 一个 UI Designer 专家角色拆成 5 个正交环节：令牌 → 组件 → 布局 → 无障碍 → 交付。每环节可单独调用，也能串成完整设计系统流水线。
-
-## 📦 收录的技能
-
-| Skill | 组 | 职责 | 输出 |
-|---|---|---|---|
-| [`enhance-prompt`](skills/enhance-prompt/) | 提示词 | 改写模糊指令，补全目标/范围/约束/输出格式，假设显式标注 | `<enhanced-prompt>` 单条增强指令 |
-| [`design-token-crafter`](skills/design-token-crafter/) | UI | 品牌色 → 100–900 色阶、语义色、字体/间距/阴影/过渡令牌，含暗色主题 | `:root` + `[data-theme="dark"]` CSS |
-| [`component-state-designer`](skills/component-state-designer/) | UI | 五类组件 × 变体/尺寸 × 完整状态矩阵（含 `:focus-visible`） | BEM 组件 CSS + 状态矩阵表 |
-| [`responsive-layout-blueprint`](skills/responsive-layout-blueprint/) | UI | mobile-first 五档断点、12 列栅格、容器与组件跨端行为 | 栅格 CSS + 断点速查表 |
-| [`wcag-accessibility-checker`](skills/wcag-accessibility-checker/) | UI | 六维 WCAG AA 审计，给出算过的对比度比值与可执行修复值 | 分级整改清单（阻断→严重→一般） |
-| [`design-handoff-writer`](skills/design-handoff-writer/) | UI | 带测量的规格卡、令牌对照、使用边界、可勾选 QA 清单 | Markdown 交接文档 |
-
-UI 五件套的依赖关系：
+`ui-designer` 内部结构：
 
 ```
-design-token-crafter ──┬──> component-state-designer ──┬──> design-handoff-writer
-                       └──> responsive-layout-blueprint ┘
-                                    ▲
-                       wcag-accessibility-checker（横切，任一环节后都可插入）
+ui-designer
+├── 1 设计令牌 ──┬── 2 组件与状态 ──┬── 5 开发交付
+│               └── 3 响应式布局 ──┘
+└── 4 WCAG AA 审计（横切，任一阶段后均可插入；问题回灌 1–3 修正后才进 5）
 ```
 
 ## 🚀 安装
@@ -62,8 +51,10 @@ cp -r agent-skills/skills/* ~/.qoder/skills/      # Qoder
 
 ```text
 /enhance-prompt  帮我把这个需求说清楚
-设计令牌：品牌主色 #7c3aed，要暗色模式
-检查配色 #6b7280 放在 #f9fafb 上能不能过 WCAG AA
+
+从品牌色 #0ea5e9 开始，把设计系统整套做出来并交给前端    # ui-designer 全五阶段
+品牌主色 #7c3aed，生成一套设计令牌，要暗色模式            # ui-designer 仅阶段 1
+检查 #6b7280 放在 #f9fafb 上能否过 WCAG AA                # ui-designer 仅阶段 4
 ```
 
 也可以不点名，直接描述任务，由 Agent 按各 `SKILL.md` 的 `description` 触发词隐式匹配。
@@ -78,11 +69,9 @@ agent-skills/
     ├── enhance-prompt/
     │   ├── SKILL.md              # 技能正文（Agent 读这个）
     │   └── README.md             # 面向人的说明
-    ├── design-token-crafter/
-    ├── component-state-designer/
-    ├── responsive-layout-blueprint/
-    ├── wcag-accessibility-checker/
-    └── design-handoff-writer/
+    └── ui-designer/
+        ├── SKILL.md
+        └── README.md
 ```
 
 每个技能目录固定两文件：`SKILL.md`（规范正文）+ `README.md`（人读的安装与用法）。许可证集中在根目录，不做每技能一份。
@@ -93,7 +82,7 @@ frontmatter 只依赖 `name` 与 `description` 两个字段——这是跨客户
 
 ```yaml
 ---
-name: design-token-crafter
+name: ui-designer
 description: "一句话职责 + 触发词列表 + 适用场景"
 ---
 ```
@@ -102,24 +91,42 @@ description: "一句话职责 + 触发词列表 + 适用场景"
 
 三条硬规则，是我判断一个技能值不值得留的标准：
 
-1. **职责单一** —— 明确写出"不负责什么"，避免技能之间互相抢活。
-2. **输出格式写死** —— 不给格式的技能等于没给。
+1. **边界清晰** —— 明确写出"不负责什么"，避免技能之间互相抢活。
+2. **输出格式写死** —— 每个阶段各自的产出规范都定死，不给格式的技能等于没给。
 3. **约束可验证** —— 例如"对比度必须给出算过的比值，不接受'提高对比度'这类空话"。
 
 部分技能带有 `description_zh` / `display_name` / `visibility` 等扩展字段，来自 WorkBuddy 与 Codex 的原始导出。Qoder 会忽略未知字段，不影响加载。
 
+## ⚖️ 一个入口，还是拆成多个
+
+这里有过一次反复，值得记下来。
+
+`ui-designer` 最初被拆成 5 个独立技能（`design-token-crafter`、`component-state-designer`、`responsive-layout-blueprint`、`wcag-accessibility-checker`、`design-handoff-writer`），理由是职责单一、便于单独迭代。用下来发现两个实际问题：
+
+- **记名字成本高**。五个环节各自都要手动点名，而真实任务常常横跨其中三四个。
+- **触发词互相抢**。五份 `description` 里都含 `ui-design`、`design-system`、`frontend`，只说"帮我做 UI"时命中哪个是随机的，且单个技能不会自己往下游走，链路断在手里。
+
+所以 2.0.0 合并为单入口，**但把"职责单一"从技能层下沉到阶段层**：内部仍是五个边界清晰的阶段，各自的约束和输出格式逐条保留、一字未减；要单点调用只说那一件事即可。
+
+判断标准也随之改写：拆分的依据不是"职责要不要单一"，而是**这些职责是否会被独立且高频地调用**。会——拆成多个技能；总是连着用——合成一个技能，内部分阶段。
+
+`enhance-prompt` 是前者的例子：它只改指令、从不执行，与任何实施技能都不连着触发，所以保持独立。
+
 ## 🧭 来源
 
 - `enhance-prompt` —— 从 Codex 侧用户级技能目录收编。
-- UI 五件套 —— 源专家「像素君 / UI Designer」的能力拆解产物，2026-09-18 定稿。原计划按 `PUBLISH-PLAN.md` 发成 5 个独立仓库，现合并为本仓库统一维护，`topics` 与关键词布局相应整合到本文件。
+- `ui-designer` —— 源专家「像素君 / UI Designer」的能力拆解产物（2026-09-18 定稿为 5 个技能），2026-09-20 合并为单入口 v2.0.0。原 `PUBLISH-PLAN.md` 规划的"5 个独立仓库"方案一并作废，统一由本仓库承载。
 
 ## ❓ FAQ
 
-**Q：为什么不一个专家一个大技能？**
-大技能里塞满子职责后，触发不精准、输出格式容易互相打架。拆开之后每个环节可单独调用、单独迭代，串起来仍是完整流水线。
+**Q：合并成一个技能，会不会又变回"什么都能干"的大技能？**
+不会。`ui-designer` 依然只产出设计规格与 CSS，不碰业务逻辑与后端；五个阶段各有固定输出格式和硬约束。合并的是入口，不是边界。
+
+**Q：我只想要无障碍检查，会被强推整套流程吗？**
+不会。技能正文明确写了"用户只要求某一阶段时，只跑该阶段，不要顺带产出其它阶段"。
 
 **Q：这些技能会改我的代码吗？**
-不会。六个技能全部只产出文本/CSS/Markdown，不执行命令、不写文件。`enhance-prompt` 更是明确禁止执行增强后的指令。
+不会。两个技能全部只产出文本与 CSS，不执行命令、不写文件。`enhance-prompt` 更是明确禁止执行增强后的指令。
 
 **Q：能商用吗？**
 MIT，可自由用于个人与商业项目。
