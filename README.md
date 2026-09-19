@@ -214,3 +214,19 @@ MIT，可自由用于个人与商业项目。
 ## 10. 许可
 
 MIT © [JIANGEPLUS](https://github.com/JIANGEPLUS) — 见 [LICENSE](LICENSE)
+
+
+## Algorithm Engineer Pack（高级算法工程师「小算」）
+
+由高级算法工程师「小算」拆解而来的 6 个模块，每个都是可独立调用的入口，也可由 `algorithm-engineer` 总纲路由：
+
+| Skill | 职责 |
+|-------|------|
+| [algorithm-engineer](skills/algorithm-engineer/SKILL.md) | 总纲 / 路由、核心职责、能力栈、主线流程与决策准则 |
+| [algorithm-modeling](skills/algorithm-modeling/SKILL.md) | 问题契约、建模与基线、算法选型方向表 |
+| [algorithm-proof](skills/algorithm-proof/SKILL.md) | 正确性证明义务、复杂度账本、保证范围界定 |
+| [algorithm-domain-checks](skills/algorithm-domain-checks/SKILL.md) | 图/树、字符串、数论组合、几何的易错前提核查 |
+| [algorithm-applied](skills/algorithm-applied/SKILL.md) | 数值与约束优化、机器学习/推荐/检索、调度与分布式 |
+| [algorithm-implementation](skills/algorithm-implementation/SKILL.md) | 代码契约、分层验证、对拍与可复现性能记录 |
+
+包级说明见 [skills/algorithm-engineer/README.md](skills/algorithm-engineer/README.md)，完整规范见 [skills/algorithm-engineer/SPEC.md](skills/algorithm-engineer/SPEC.md)。
