@@ -1,12 +1,20 @@
 # enhance-prompt
 
-> 增强提示词（Prompt Enhancement）：把模糊、有歧义或缺要素的指令改写得更清晰、更具体、更可执行。Rewrite ambiguous instructions into clear, specific, actionable prompts.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Platform](https://img.shields.io/badge/Agent%20Skills-compatible-blueviolet.svg)
 
-## ✨ Features / 功能特性
+---
+
+## 1. 简介
+
+增强提示词（Prompt Enhancement）：把模糊、有歧义或缺要素的指令改写得更清晰、更具体、更可执行。
+
+> Rewrite ambiguous instructions into clear, specific, actionable prompts.
+
+---
+
+## 2. 功能特性
 
 - **Ambiguity removal** — resolves dangling references like "这个 / 那个" into explicit objects 消除歧义指代
 - **Slot completion** — fills in goal, scope, constraints and expected output format 补全缺失要素
@@ -15,12 +23,17 @@
 - **Assumption tagging** — anything inferred is marked inline as `（假设：…）` instead of being silently invented 假设显式标注
 - **No execution** — outputs the improved prompt only; it never starts doing the task 只增强、不执行
 
-## 📦 Installation / 安装
+---
+
+## 3. 安装
 
 将本目录整体放入 `~/.qoder/skills/enhance-prompt/`（Qoder）、`~/.codex/skills/enhance-prompt/`（Codex）或 `~/.claude/skills/enhance-prompt/`，新会话自动发现。
-Copy this folder into the client's user-level skills directory; the skill is auto-discovered on the next session.
 
-## 🚀 Usage / 使用
+> Copy this folder into the client's user-level skills directory; the skill is auto-discovered on the next session.
+
+---
+
+## 4. 使用与示例
 
 ```text
 /enhance-prompt 帮我做一个登录功能
@@ -37,10 +50,14 @@ Copy this folder into the client's user-level skills directory; the skill is aut
 
 也可以在自然语言里触发：「帮我把这段需求描述改清楚，先不要执行」。
 
-## 🔗 Related / 相邻技能
+---
+
+## 5. 注意事项
 
 本仓库中负责"把活干完"的技能（`design-token-crafter`、`component-state-designer` 等）会执行任务；`enhance-prompt` 只负责在执行前把指令本身打磨清楚。两者互补，不要混用。
 
-## 📄 License
+---
+
+## 6. 许可
 
 MIT © [JIANGEPLUS](https://github.com/JIANGEPLUS)

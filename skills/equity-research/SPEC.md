@@ -7,6 +7,7 @@
 ## 1. 来源与拆解逻辑
 
 源专家：`EquityResearchExpert`（严估深，股票研究专家，v2.1.0）
+
 组成：1 个 agent 主文档 + 16 个内置 skill + 3 份规则文档
 
 拆解原则：**按"一次调用要交付什么"划分职责边界**，而非按源 skill 数量一比一照搬。16 个源 skill 合并为 6 个模块，消除重叠（如 `earnings-preview` 已废弃，并入 `fundamentals-analysis`）。
@@ -26,7 +27,7 @@
 
 本包遵循 `agent-skills` 仓库的扁平约定，每个模块是一个独立目录（`skills/<name>/SKILL.md`）。
 
-```
+```text
 skills/
 ├── equity-research/                # 总纲 / 路由 + 包级文档
 │   ├── SKILL.md
@@ -34,51 +35,45 @@ skills/
 │   ├── SPEC.md                     # 本文件（完整说明）
 │   ├── agents/openai.yaml
 │   └── references/
-│       ├── data-timeliness.md        # 财务数据时效性规则
+│       ├── data-timeliness.md      # 财务数据时效性规则
 │       └── deliverable-framework.md  # 交付物规范
-    ├── equity-research/            # 总纲 / 路由
-    │   ├── SKILL.md
-    │   ├── agents/openai.yaml
-    │   └── references/
-    │       ├── data-timeliness.md        # 财务数据时效性规则
-    │       └── deliverable-framework.md  # 交付物规范
-    ├── fundamentals-analysis/
-    │   ├── SKILL.md
-    │   ├── README.md
-    │   ├── agents/openai.yaml
-    │   └── references/
-    │       ├── workflow.md               # Analysis 模式详细步骤
-    │       ├── report-structure.md       # 报告页面模板
-    │       └── best-practices.md         # 质量清单
-    ├── valuation/
-    │   ├── SKILL.md
-    │   ├── README.md
-    │   ├── agents/openai.yaml
-    │   └── references/valuation-standard.md
-    ├── research-report/
-    │   ├── SKILL.md
-    │   ├── README.md
-    │   ├── agents/openai.yaml
-    │   └── references/
-    │       ├── task1-company-research.md
-    │       ├── task2-financial-modeling.md
-    │       ├── task3-valuation.md
-    │       ├── task4-chart-generation.md
-    │       ├── task5-report-assembly.md
-    │       ├── valuation-methodologies.md
-    │       ├── report-template.md
-    │       └── quality-checklist.md
-    ├── risk-monitoring/
-    │   ├── SKILL.md
-    │   ├── README.md
-    │   └── agents/openai.yaml
-    └── idea-screening/
-        ├── SKILL.md
-        ├── README.md
-        └── agents/openai.yaml
+├── fundamentals-analysis/
+│   ├── SKILL.md
+│   ├── README.md
+│   ├── agents/openai.yaml
+│   └── references/
+│       ├── workflow.md             # Analysis 模式详细步骤
+│       ├── report-structure.md     # 报告页面模板
+│       └── best-practices.md       # 质量清单
+├── valuation/
+│   ├── SKILL.md
+│   ├── README.md
+│   ├── agents/openai.yaml
+│   └── references/valuation-standard.md
+├── research-report/
+│   ├── SKILL.md
+│   ├── README.md
+│   ├── agents/openai.yaml
+│   └── references/
+│       ├── task1-company-research.md
+│       ├── task2-financial-modeling.md
+│       ├── task3-valuation.md
+│       ├── task4-chart-generation.md
+│       ├── task5-report-assembly.md
+│       ├── valuation-methodologies.md
+│       ├── report-template.md
+│       └── quality-checklist.md
+├── risk-monitoring/
+│   ├── SKILL.md
+│   ├── README.md
+│   └── agents/openai.yaml
+└── idea-screening/
+    ├── SKILL.md
+    ├── README.md
+    └── agents/openai.yaml
 ```
 
-模块总数：6 个 SKILL.md + 6 个 README.md + 6 个 openai.yaml + 15 篇 references。
+模块总数：6 个 `SKILL.md` + 6 个 `README.md` + 6 个 `openai.yaml` + 1 个 `SPEC.md` + 14 篇 references。
 
 ---
 
@@ -97,14 +92,18 @@ skills/
 | `metadata.language` | 可选 | 主语言 | `zh-CN` |
 | `metadata.modules` | 可选 | 关联模块（仅总纲使用） | 模块名数组 |
 
-`agents/openai.yaml`（Codex CLI 专有，其他 Agent 忽略）：
+### 3.1 agents/openai.yaml
+
+Codex CLI 专有，其他 Agent 忽略：
 
 ```yaml
 display_name: "Equity Research"   # 选择器中的显示名
 icon: "trending-up"                # 图标标识
 ```
 
-**正文结构约定**：能力清单 → 工作流（分阶段 Step/Phase）→ 输出模板 → 注意事项/纪律 → 参考文档索引。
+### 3.2 正文结构约定
+
+能力清单 → 工作流（分阶段 Step/Phase）→ 输出模板 → 注意事项/纪律 → 参考文档索引。
 
 ---
 
@@ -125,7 +124,7 @@ icon: "trending-up"                # 图标标识
 
 ## 5. 扩展方式
 
-### 新增模块
+### 5.1 新增模块
 
 1. 在 `skills/` 下新建目录，目录名 = `name`（小写连字符）
 2. 编写 `SKILL.md`：`description` 中前置触发词、写清 DO / DO NOT 边界
@@ -134,11 +133,11 @@ icon: "trending-up"                # 图标标识
 5. 编写模块 `README.md`（职责边界、触发条件、输入输出、使用要点）
 6. 更新 `skills/equity-research/README.md` 的模块表与调用示例
 
-### 新增参考文档
+### 5.2 新增参考文档
 
 放入模块 `references/` 目录，并在 `SKILL.md` 末尾建立索引表（主题 → 文件）。保持 SKILL.md 精简，让 Agent 按需加载 references。
 
-### 跨模块复用
+### 5.3 跨模块复用
 
 如需共享估值口径或模板，放进使用频率最高的模块，其余模块用相对路径引用，避免复制导致口径漂移。
 
@@ -161,4 +160,5 @@ icon: "trending-up"                # 图标标识
 ## 7. 推送与同步
 
 仓库：`JIANGEPLUS/agent-skills`（默认分支 `main`）。
+
 提交粒度建议：一个逻辑变更一个 commit，message 采用 `type(scope): subject`（如 `feat(skills): add valuation module`）。

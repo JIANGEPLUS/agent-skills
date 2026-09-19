@@ -1,12 +1,20 @@
 # ui-designer
 
-> UI 设计师（像素君）单入口技能 —— 一条流水线覆盖设计令牌、组件状态、响应式布局、WCAG AA 无障碍审计与开发交付文档。A single-entry UI designer skill: tokens → components → responsive layout → accessibility audit → developer handoff.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 ![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
 ![Platform](https://img.shields.io/badge/Agent%20Skills-compatible-blueviolet.svg)
 
-## ✨ Features / 功能特性
+---
+
+## 1. 简介
+
+UI 设计师（像素君）单入口技能 —— 一条流水线覆盖设计令牌、组件状态、响应式布局、WCAG AA 无障碍审计与开发交付文档。
+
+> A single-entry UI designer skill: tokens → components → responsive layout → accessibility audit → developer handoff.
+
+---
+
+## 2. 功能特性
 
 - **Design tokens** — 品牌色扩展 100–900 色阶、语义色、字体/间距/阴影/过渡阶梯、`[data-theme="dark"]` 覆盖 令牌体系
 - **Component states** — 五类组件 × 变体/尺寸 × 完整状态矩阵，含 `:focus-visible` 与 loading/error/empty 三态 组件状态矩阵
@@ -15,12 +23,17 @@
 - **Handoff docs** — 带测量的规格卡、令牌对照表、使用边界、可勾选 QA 清单 开发交接文档
 - **Single entry** — 可全跑五阶段，也可只点其中一个阶段；不再需要记五个名字 单入口
 
-## 📦 Installation / 安装
+---
+
+## 3. 安装
 
 将本目录整体放入 `~/.qoder/skills/ui-designer/`（Qoder）、`~/.codex/skills/ui-designer/`（Codex）或 `~/.claude/skills/ui-designer/`，新会话自动发现。
-Copy this folder into the client's user-level skills directory; the skill is auto-discovered on the next session.
 
-## 🚀 Usage / 使用
+> Copy this folder into the client's user-level skills directory; the skill is auto-discovered on the next session.
+
+---
+
+## 4. 使用与示例
 
 **跑完整流水线：**
 
@@ -38,7 +51,9 @@ Copy this folder into the client's user-level skills directory; the skill is aut
 登录页定稿了，写一份给前端的交接文档                    → 阶段 5
 ```
 
-## 🧬 五个阶段
+---
+
+## 5. 五个阶段
 
 | # | 阶段 | 产出 |
 |---|---|---|
@@ -50,10 +65,14 @@ Copy this folder into the client's user-level skills directory; the skill is aut
 
 阶段 4 是横切的，任一阶段后都可插入；审计发现的问题回灌到 1–3 修正后才进入阶段 5。
 
-## 📝 版本说明
+---
+
+## 6. 版本说明
 
 `2.0.0` 是本技能由 5 个独立子技能（`design-token-crafter`、`component-state-designer`、`responsive-layout-blueprint`、`wcag-accessibility-checker`、`design-handoff-writer`）合并为单入口的版本。五个子技能的全部约束逐条保留，未新增能力。
 
-## 📄 License
+---
+
+## 7. 许可
 
 MIT © [JIANGEPLUS](https://github.com/JIANGEPLUS)
